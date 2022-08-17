@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "53440918166",
+    "firebase_url": "https://sparta-myhoneytip-nkw-default-rtdb.firebaseio.com",
+    "project_id": "sparta-myhoneytip-nkw",
+    "storage_bucket": "sparta-myhoneytip-nkw.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53440918166:android:0a8a9ddfae5134d8df08b7",
+        "android_client_info": {
+          "package_name": "com.myhoneytip.nkw"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53440918166-mghgh63e9rh5pj4k4jfjj3d8creg1alv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1BSo47GRJmv6QK2QwBnyzZapQF5dmZRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53440918166-mghgh63e9rh5pj4k4jfjj3d8creg1alv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,22 @@
+export default [
+    {
+        name:'Profile',
+        iconType:'Material',
+        iconName:'face-profile'
+    },
+    {
+        name:'Settings',
+        iconType:'Feather',
+        iconName:'settings'
+    },
+    {
+        name:'Saved',
+        iconType:'Material',
+        iconName:'bookmark-check-outline'
+    },
+    {
+        name:'Refer',
+        iconType:'FontAwesome5',
+        iconName:'user-friends'
+    }
+ ]

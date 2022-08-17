@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "[비공식] 스파르타코딩클럽 커뮤니티",
+    "slug": "unoffcial-sparta-community",
+    "version": "1.0.7",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "buildNumber": "1.0.7",
+      "bundleIdentifier": "com.nkw.spartacommunity",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-8113412540427082~9712022613"
+      }
+    },
+    "android": {
+      "package": "com.nkw.spartacommunity",
+       "versionCode": 12,
+       "googleServicesFile": "./google-service.json",
+       "useNextNotificationsApi": true,
+       "permissions": ["READ_EXTERNAL_STORAGE"],
+
+        "config": {
+          "googleMobileAdsAppId": "ca-app-pub-8113412540427082~5994987500"
+        }
+      
+  },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyCES-Kjibi7k9dUe5LEGMEvqV-2TeDIblE",
+          "authDomain": "sparta-myhoneytip-nkw.firebaseapp.com",
+          "databaseURL": "https://sparta-myhoneytip-nkw-default-rtdb.firebaseio.com",
+          "projectId": "sparta-myhoneytip-nkw",
+          "storageBucket": "sparta-myhoneytip-nkw.appspot.com",
+          "messagingSenderId": "53440918166",
+          "appId"  : "1:53440918166:web:5eac77d46dbcc944df08b7",
+          "measurementId": "G-LZ8LSC550R"
+        }
+      }
+    }
+  }
+}
