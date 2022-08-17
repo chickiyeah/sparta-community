@@ -16,7 +16,7 @@ export default function SpartaCard({content,navigation}){
       //console.log(content.desc)s
         //Linking.openURL(`https://spartacodingclub.kr/community/fastqna/all/${content.id}/${content.title}`)
     }
-
+//aa
     const [refreshing, setRefreshing] = React.useState(false);
 
     const onRefresh = React.useCallback(() => {
