@@ -23,6 +23,11 @@ jobs:
 
       - name: 📦 Install dependencies
         run: yarn install
+        
+      - name: 🚀 안드로이드 빌드
+        run: eas build -p android
 
       - name: 🚀 Publish app
         run: expo publish --non-interactive
+        
+        
