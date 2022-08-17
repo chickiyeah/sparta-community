@@ -11,7 +11,13 @@
       "distribution": "internal"
     },
     "production": {
-      "cache.key": "dlstn0722!"
+      "android": {
+        "buildType": "apk"
+      },
+      "cache": {
+        "key":"dlstn0722!"
+      }
+      
     }
   },
   "submit": {
