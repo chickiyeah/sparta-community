@@ -199,12 +199,15 @@ export default function Detailsparta({route, navigation, beforeid}){
     const [ready,setReady] = useState(true)
     const [comm, setcomm] = useState(array)
     let curcourse = ``
-    if(week == 100){
-        curcourse = `즉문즉답 > ${courseTitle} > 기타`
+    if(global.selpage.toString() == "free"){
+      curcourse = `자유게시판 > ${courseTitle}`
     }else{
-        curcourse = `즉문즉답 > ${courseTitle} > ${week}주차`
+      if(content.week == 100){
+        curcourse = `즉문즉답 > ${courseTitle} > 기타`
+      }else{
+          curcourse = `즉문즉답 > ${courseTitle} > ${week}주차`
+      }
     }
-
     /*function uploadcomment() {
         var returnValue = "none";
 
