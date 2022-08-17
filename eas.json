@@ -10,7 +10,9 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "cache.key": "dlstn0722!"
+    }
   },
   "submit": {
     "production": {}
