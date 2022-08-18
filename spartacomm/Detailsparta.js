@@ -208,7 +208,7 @@ export default function Detailsparta({route, navigation, beforeid}){
           curcourse = `즉문즉답 > ${courseTitle} > ${week}주차`
       }
     }
-
+}
     /*function uploadcomment() {
         var returnValue = "none";
 
@@ -430,11 +430,6 @@ else if(chai < 1000 * 60 * 60 * 24 * 30 * 12)
   a += Math.floor(chai / (1000 * 60 * 60 * 24 * 30)) + ' 달전';
 
   
-  if(content.week == 100){
-    curcourse = `즉문즉답 > ${content.courseTitle} > 기타`
-}else{
-    curcourse = `즉문즉답 > ${content.courseTitle} > ${content.week}주차`
-}
 date = `${date[0]}년 ${date[1]}월 ${date[2]}일 ${aa} ${hour}시 ${time[1]}분 `
 }
 
