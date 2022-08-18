@@ -208,18 +208,6 @@ export default function Detailsparta({route, navigation, beforeid}){
           curcourse = `즉문즉답 > ${courseTitle} > ${week}주차`
       }
     }
-        if(global.selpage.toString() == "free"){
-                console.log("success")
-                      curcourse = `자유게시판 > ${content.courseTitle}`
-                          }else{
-                                console.log("fail")
-                                      if(content.week == 100){
-                                              curcourse = `즉문즉답 > ${content.courseTitle} > 기타`
-                                                    }else{
-                                                              curcourse = `즉문즉답 > ${content.courseTitle} > ${content.week}주차`
-                                                                    }
-                                                                        }
-        }
 
     /*function uploadcomment() {
         var returnValue = "none";
@@ -375,11 +363,6 @@ export default function Detailsparta({route, navigation, beforeid}){
         
 })
 
-if(content.week == 100){
-    curcourse = `즉문즉답 > ${content.courseTitle} > 기타`
-}else{
-    curcourse = `즉문즉답 > ${content.courseTitle} > ${content.week}주차`
-}
 let descmap = []
 let date = ``
 let time = ``
