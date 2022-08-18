@@ -92,8 +92,8 @@ export default function AboutGather({route, navigation, beforeid}){
       console.log(elti)
     }else{
       if(week[nowdate.getUTCDay()].includes("목요일")){      
-        write = new Date(nowdate.setUTCHours(14,0,0,0))
-        write = new Date(write.setUTCDate(write.getUTCDate()+2))
+        write = new Date(nowdate.setUTCHours(20,0,0,0))
+        //write = new Date(write.setUTCDate(write.getUTCDate()))
         nowdate = new Date(year, month, day, hours, minutes, seconds)
       }
       if(week[nowdate.getUTCDay()].includes("금요일")){      
