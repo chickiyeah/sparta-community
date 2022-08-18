@@ -24,6 +24,9 @@ jobs:
 
       - name: 📦 Install dependencies
         run: yarn install
+
+      - name: 📦 doctor dependencies
+        run: expo doctor --fix-dependencies
         
       - name: 🚀 안드로이드 빌드
         run: expo build:android -t apk
