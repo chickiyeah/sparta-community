@@ -73,6 +73,7 @@ export default function sparta({navigation, route}){
                 let week = content.week
                 let desc = content.content
                 let image = desc.match(/<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/g)
+let likeCount = content.likeCount
                 let imagelist = []
                 if(image != null){
                     image.map((link, i) => {
@@ -126,7 +127,7 @@ export default function sparta({navigation, route}){
                 
                 
                 let comm = {
-                    author, commentCount, title, id, status, answeredDate, firstViewedDate, viewCount, week, desc, createdAt, courseTitle, imagelist, profile, codesnipet
+                    author, commentCount, title, id, status, answeredDate, firstViewedDate, viewCount, week, desc, createdAt, courseTitle, imagelist, profile, codesnipet, likeCount
                 }
                 array.push(comm)
                 
