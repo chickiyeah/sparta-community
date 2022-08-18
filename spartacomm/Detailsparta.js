@@ -199,7 +199,7 @@ export default function Detailsparta({route, navigation, beforeid}){
     const [ready,setReady] = useState(true)
     const [comm, setcomm] = useState(array)
     let curcourse = ``
-    if(global.selpage.toString() == "free"){
+    if(global.selpage.toString() == "free"){8
       curcourse = `자유게시판 > ${courseTitle}`
     }else{
       if(content.week == 100){
@@ -448,9 +448,15 @@ date = `${date[0]}년 ${date[1]}월 ${date[2]}일 ${aa} ${hour}시 ${time[1]}분
 }
 
 const share = () => {
+if(global.selpage.toString() == "free"){
+  Share.share({
+      message:`https://spartacodingclub.kr/community/freeboard/all/${id}/${content.title}`,
+  });
+}else{
   Share.share({
       message:`https://spartacodingclub.kr/community/fastqna/all/${id}/${content.title}`,
   });
+}
 }
   if(content.imagelist != null){
     if(content.imagelist.length != 0){
