@@ -101,7 +101,7 @@ const requestSparta = async (token) => {
     var request_token_url = "https://online.spartacodingclub.kr/api/v1/oauth/kakao/token";
 
 
-
+maxRedirects: 0
     axios({
 
         method: "get",
