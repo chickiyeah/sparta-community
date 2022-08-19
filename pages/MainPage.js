@@ -205,6 +205,7 @@ export default function MainPage({navigation,route}) {
           <Image style={styles.mainImage} source={main}/>
 
           <ScrollView style={styles.middleContainer} indicatorStyle={"white"}>
+<TouchableOpacity style={styles.middleButtonAll} onPress={()=>{navigation.reset({index: 0, routes:[{name:'kakaoLogin<TouchableOpacity style={styles.middleButtonAll} onPress={()=>{navigation.reset({index: 0, routes:[{name:'sparta'}]}),global.selpage = 'quiz'}}><Text style={styles.middleButtonTextAll}>즉문즉답</Text></TouchableOpacity>}]}),global.selpage = 'quiz'}}><Text style={styles.middleButtonTextAll}>즉문즉답</Text></TouchableOpacity>
               <TouchableOpacity style={styles.middleButtonAll} onPress={()=>{navigation.reset({index: 0, routes:[{name:'sparta'}]}),global.selpage = 'quiz'}}><Text style={styles.middleButtonTextAll}>즉문즉답</Text></TouchableOpacity>
               <TouchableOpacity style={styles.middleButton01} onPress={()=>{navigation.reset({index: 0, routes:[{name:'spartaja'}]}),global.selpage = 'free'}}><Text style={styles.middleButtonTextAll}>자유게시판</Text></TouchableOpacity>
               <TouchableOpacity style={styles.middleButton02} onPress={()=>{goSlack()}}><Text style={styles.middleButtonTextAll}>슬랙</Text></TouchableOpacity>
