@@ -13,6 +13,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 
 import '../../global.js'
 
+import Networking from 'react-native/Libraries/Network/RCTNetworking'
+
+
 
 
 
@@ -34,8 +37,9 @@ const useProxy = true;
 const redirectUri = AuthSession.makeRedirectUri({useProxy,});
 
 WebBrowser.maybeCompleteAuthSession();
- 
+
 export default function kakaoLogin({ navigation }) {
+
     this.webView= {
         canGoBack: false,
         ref: null,
@@ -64,13 +68,35 @@ export default function kakaoLogin({ navigation }) {
           
               return () => backHandler.remove([navState.canGoBack])
     },[])
+
     function LogInProgress(data) {
 
         // access code는 url에 붙어 장황하게 날아온다.
 
         // substringd으로 url에서 code=뒤를 substring하면 된다.
 
+        alert(data)
         const exp = "code=";
+
+        var condition = data.indexOf(exp);
+
+        //console.log(Networking.getCookies())
+        if (condition != -1) {
+            this.webView.ref.stopLoading(true)
+            console.log(data)
+            
+
+            var request_code = data.substring(condition + exp.length);
+
+            console.log("access code :: " + request_code);
+
+            // 토큰값 받기
+
+            //requestToken(request_code);
+            requestSparta(request_code);
+
+        }
+        /*const exp = "code=";
 
         var condition = data.indexOf(exp);
 
@@ -85,23 +111,54 @@ export default function kakaoLogin({ navigation }) {
 
             // 토큰값 받기
 
-            requestToken(request_code);
+            //requestToken(request_code);
+            //requestSparta(request_code);
 
-        }
+        }*/
 
     };
 
 //https://online.spartacodingclub.kr/api/v1/oauth/kakao/login?code=
+const getCookiesJS = "ReactNativeWebView.postMessage(document.cookie)";
+function cache(instance, options) {
+    instance.interceptors.request.use(function(config) {
+      if (!config.method === 'get') {
+        return config;
+      }
+      return cache.get(generateOptions(config, options))
+        .then(createCachedError, function() { return config; });
+    });
+    instance.interceptors.response.use(null, function(error) {
+      if (error.cachedResult) {
+        return Promise.resolve(error.cachedResult);
+      }
+      return Promise.reject(error);
+    });
+  }
 
-
+function cachingAdapter(resolve, reject, config) {
+  cache.get(generateOptions(config, options)).then(function(result) {
+    resolve(createResponse(result));
+  }, function() {
+    axios.defaults.adapter(resolve, reject, config);
+  });
+}
 const requestSparta = async (token) => {
 
     var returnValue = "none";
 
-    var request_token_url = "https://online.spartacodingclub.kr/api/v1/oauth/kakao/token";
+    var request_token_url = "https://online.spartacodingclub.kr/api/v1/oauth/kakao/login";
 
+    const axios = require('axios');
+    const wrapper = require('axios-cookiejar-support').wrapper;
+    const CookieJar = require('tough-cookie').CookieJar;
 
-maxRedirects: 0
+    const jar = new CookieJar();
+    const client = wrapper(axios.create({ jar }));
+
+    const url = request_token_url;
+
+    const params = new URLSearchParams();
     axios({
 
         method: "get",
@@ -109,17 +166,24 @@ maxRedirects: 0
         url: request_token_url,
 
         withCredentials:true,
-
-        headers: {
-
-            'Content-Type': 'application/x-www-form-urlencoded',
+        maxRedirects: 5,
+        credentials: "SAMEORIGIN",
+        headers: { 
+            
+            'access-control-allow-origin': '*',
+            authority: "online.spartacodingclub.kr", 
+            'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
+            accept: `text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9`,
             code: token,
-
         },
 
     }).then(function (response) {
         returnValue = response;
-        console.log('token',returnValue)
+        console.log('token',response.request)
+        console.log('token',response)
+        console.log('token',response.request.responseHeaders)
+        //console.log('token',response.request.responseURL)
+        //console.log('token',response.request._response)
         //console.log(response.request.header)
         //requestplayer(returnValue)
 
@@ -131,7 +195,24 @@ maxRedirects: 0
 
     });
 
+
+
 };
+const navChange = e => {
+    console.log("e", e);
+    this.setState({ loading: e.loading });
+    if (e.url == "https://spartacodingclub.kr/") {
+      CookieManager.getAll(true).then(res => {
+        console.log("CookieManager.getAll =>", res);
+        if (!!res) {
+          console.log({res})
+          /*CookieManager.clearAll(true).then(res => {
+            console.log("LoginScreen CookieManager.clearAll =>", res);
+          });*/
+        }
+      });
+    }
+  };
 
  
 
@@ -218,7 +299,7 @@ maxRedirects: 0
                 email,
               };
 
-            //navigation.navigate('loginsuccess', {service,nickname,profile_image,birthday,email,id,gender})
+            navigation.navigate('loginsuccess', {service,nickname,profile_image,birthday,email,id,gender,phone_number})
 
  
 
@@ -243,20 +324,21 @@ maxRedirects: 0
                 scalesPageToFit={false}
                 
                 ref={(webView) => { this.webView.ref = webView; }}
-                onNavigationStateChange={(navState) => {this.webView.canGoBack = navState.canGoBack; }}
+                onNavigationStateChange={(navState) => {this.webView.canGoBack = navState.canGoBack;this.navChange}}
 
                 style={{ marginTop: 30 }}
 
                 source={{ uri: 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=535068688f1a8bca1c21a9445ede0a89&redirect_uri=https://online.spartacodingclub.kr/api/v1/oauth/kakao/login' }}
 
-                injectedJavaScript={runFirst}
+                injectedJavaScript={getCookiesJS}
                 
                 javaScriptEnabled={true}
 
-                onShouldStartLoadWithRequest={(event) => {if(event.url.includes("code")){LogInProgress(event.url);return true;}else{return true;}}}
+                thirdpartycookiesenabled={true}
+
+                onShouldStartLoadWithRequest={(event) => {LogInProgress(event.url);return true}}
 
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
-
             />
 
         </View>
