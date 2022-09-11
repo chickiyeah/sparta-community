@@ -40,6 +40,7 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function kakaoLogin({ navigation }) {
 
+  let user = ""
     this.webView= {
         canGoBack: false,
         ref: null,
@@ -74,21 +75,35 @@ export default function kakaoLogin({ navigation }) {
         // access code는 url에 붙어 장황하게 날아온다.
 
         // substringd으로 url에서 code=뒤를 substring하면 된다.
+        //console.log(data)
+        //alert(data)
+        const userexp = "userinfo="
+        const exp = "user_id=";
+        let userinfo = ""
+        //code=
+        let condition = -1
+      if(data != undefined){
+        condition = data.indexOf(exp);
+        userinfo = data.indexOf(userexp)
+      }else{
+        condition = -1
+      }
 
-        alert(data)
-        const exp = "code=";
-
-        var condition = data.indexOf(exp);
-
-        //console.log(Networking.getCookies())
+        //console.log(Networking.getCookies("spartacodingclub.kr"))
         if (condition != -1) {
-            this.webView.ref.stopLoading(true)
-            console.log(data)
+            //this.webView.ref.stopLoading(true)
+            //console.log(data)
             
-
+            let userdata = data.substring(userinfo+userexp.length).split(";")[0].split("&");
+            let id = userdata[0].split("=")[1]
+            let email = userdata[2].split("=")[1].replace("%40","@")
+            let phone = userdata[3].split("=")[1]
             var request_code = data.substring(condition + exp.length);
-
-            console.log("access code :: " + request_code);
+            request_code = request_code.split(";")[0]
+            user = `{"id":"${request_code}","email":"${email}","phone":"${phone}"}`
+            user = JSON.parse(user)
+            
+            console.log("access code :: " + user);
 
             // 토큰값 받기
 
@@ -112,7 +127,7 @@ export default function kakaoLogin({ navigation }) {
             // 토큰값 받기
 
             //requestToken(request_code);
-            //requestSparta(request_code);
+            requestSparta(request_code);
 
         }*/
 
@@ -147,7 +162,7 @@ const requestSparta = async (token) => {
 
     var returnValue = "none";
 
-    var request_token_url = "https://online.spartacodingclub.kr/api/v1/oauth/kakao/login";
+    var request_token_url = "https://api.scc.spartacodingclub.kr/community-user/";
 
     const axios = require('axios');
     const wrapper = require('axios-cookiejar-support').wrapper;
@@ -163,29 +178,19 @@ const requestSparta = async (token) => {
 
         method: "get",
 
-        url: request_token_url,
+        url: request_token_url+token,
 
         withCredentials:true,
         maxRedirects: 5,
         credentials: "SAMEORIGIN",
-        headers: { 
-            
-            'access-control-allow-origin': '*',
-            authority: "online.spartacodingclub.kr", 
-            'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36',
-            accept: `text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9`,
-            code: token,
-        },
 
     }).then(function (response) {
         returnValue = response;
-        console.log('token',response.request)
-        console.log('token',response)
-        console.log('token',response.request.responseHeaders)
-        //console.log('token',response.request.responseURL)
-        //console.log('token',response.request._response)
-        //console.log(response.request.header)
-        //requestplayer(returnValue)
+        console.log('token',response.data.user)
+        user.name = response.data.user.name
+        user.profile = response.data.user.profile
+        console.log('final user data', user)
+        navigation.navigate('loginsuccess', user)
 
 
 
@@ -272,7 +277,8 @@ const navChange = e => {
 
             headers: {
 
-                Authorization: 'Bearer '+token
+                Authorization: 'Bearer '+token,
+                'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36'
 
             },
 
@@ -299,7 +305,7 @@ const navChange = e => {
                 email,
               };
 
-            navigation.navigate('loginsuccess', {service,nickname,profile_image,birthday,email,id,gender,phone_number})
+            //navigation.navigate('loginsuccess', {service,nickname,profile_image,birthday,email,id,gender,phone_number})
 
  
 
@@ -328,15 +334,20 @@ const navChange = e => {
 
                 style={{ marginTop: 30 }}
 
-                source={{ uri: 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=535068688f1a8bca1c21a9445ede0a89&redirect_uri=https://online.spartacodingclub.kr/api/v1/oauth/kakao/login' }}
+                source={{ uri: 'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e97351b42b29c3d0518f85d0368a8985&redirect_uri=https://online.spartacodingclub.kr/api/v1/oauth/kakao/login' }}
+                //e97351b42b29c3d0518f85d0368a8985
+                //535068688f1a8bca1c21a9445ede0a89
 
+                //https://online.spartacodingclub.kr/login?next=https://spartacodingclub.kr/community
+                //https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=e97351b42b29c3d0518f85d0368a8985&redirect_uri=https://online.spartacodingclub.kr/api/v1/oauth/kakao/login
                 injectedJavaScript={getCookiesJS}
                 
                 javaScriptEnabled={true}
 
-                thirdpartycookiesenabled={true}
-
                 onShouldStartLoadWithRequest={(event) => {LogInProgress(event.url);return true}}
+                onMessage={(event) => {LogInProgress(event.nativeEvent.data)}}
+                sharedCookiesEnabled={true}
+                thirdPartyCookiesEnabled = {true}
 
             // onMessage ... :: webview에서 온 데이터를 event handler로 잡아서 logInProgress로 전달
             />

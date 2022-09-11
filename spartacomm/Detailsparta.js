@@ -1,5 +1,5 @@
 import React,{useState, useEffect, PureComponent} from 'react';
-import RN, {BackHandler, ScrollView, Text, StyleSheet, Alert, Image, View, useWindowDimensions, Share, Animated } from 'react-native';
+import RN, {BackHandler, ScrollView, Text, StyleSheet, Button, Image, View, useWindowDimensions, Share, Animated } from 'react-native';
 import SpartaCardComment from '../components/SpartaCardComment';
 import * as Linking from 'expo-linking';
 import AutoHeightImage from "react-native-auto-height-image";
@@ -208,14 +208,16 @@ export default function Detailsparta({route, navigation, beforeid}){
           curcourse = `즉문즉답 > ${courseTitle} > ${week}주차`
       }
     }
-    /*function uploadcomment() {
+    function uploadcomment() {
+        let data = JSON.parse(`{"attachFiles": [],"content": "<p> (기분이) </p>","postId": "631db3a66a94af1725ae5b84","userId": "626be1411d008bf29af0e436"}`)
+        console.log(data)
         var returnValue = "none";
 
-        var request_token_url = `https://api.scc.spartacodingclub.kr/community/62dbdc19697492e2920e2b42/comment`;
+        var request_token_url = `https://api.scc.spartacodingclub.kr/community/631db3a66a94af1725ae5b84/comment`;
 
  
 
-        axios({
+        /*axios({
 
             method: "post",
 
@@ -225,14 +227,12 @@ export default function Detailsparta({route, navigation, beforeid}){
 
             headers :{
                 ":authority": "api.scc.spartacodingclub.kr",
-                "accept": "application/json, text/plain"
+                "accept": "application/json, text/plain",
+                ":path": "/community/631db3a66a94af1725ae5b84/comment"
             },
 
-            params :{
-                attachFiles: [],
-                content: "<p> 댓글 테스팅 </p>",
-                postId: "62dbdc19697492e2920e2b42",
-                userId: "626be1411d008bf29af0e436"
+            data :{
+              data
             }
 
 
@@ -245,9 +245,9 @@ export default function Detailsparta({route, navigation, beforeid}){
 
             console.log('error', error);
 
-        });
+        });*/
 
-    } 위험 구역 위험 구역*/
+    }
 
     function getcomment() {
 
@@ -495,7 +495,9 @@ if(global.selpage.toString() == "free"){
                     })
                 }   
                 </ScrollView>
-
+                <View style={styles.input}>
+                  <Button title='업로드' onPress={()=> {uploadcomment()}}></Button>
+                </View>
             </ScrollView>
         )
     }else{
@@ -525,7 +527,7 @@ if(global.selpage.toString() == "free"){
                 }   
                 </ScrollView>
                 <View style={styles.input}>
-
+                  <Button></Button>
                 </View>
             </ScrollView>
         )        

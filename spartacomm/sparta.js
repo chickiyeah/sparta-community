@@ -137,7 +137,8 @@ export default function sparta({navigation, route}){
 
         }).catch(function (error) {
 
-            Alert.alert('오류 발생', error.toString());
+          Alert.alert('오류 발생', error.message);
+          navigation.navigate('MainPage')
 
 
         });

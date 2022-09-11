@@ -21,6 +21,7 @@ import AboutGather from '../spartacomm/AboutGather';
 
 import { nicname2 } from '../pages/Settings';
 import '../global.js'
+import * as RootNavigation from '../RootNavigation.js';
 const Drawer = createDrawerNavigator();
 export const myComponent = () => {
   // Get the global variables & functions via context
@@ -36,12 +37,12 @@ function HeaderR() {
 
 export const CustomDrawer = props => {
     //const data = loginsuccess();
-    let profile_image = global.profile_image.profile_image
+    let profile_image = global.profile_image
     let birthday = global.birthday.birthday
-    let name = global.name.nickname
+    let name = global.name
     let id = global.id
     if(name == undefined){
-      let name = global.name.name
+      name = global.name.nickname
     }
     
     if(id == undefined || id.length == 0){
@@ -81,6 +82,20 @@ export const CustomDrawer = props => {
           <Text style = {styles.logoutText}>피드백</Text>
           
         </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 10,
+            left: 10,
+            bottom: 40,
+            backgroundColor: '#009DAE',
+            padding: 10,
+            borderRadius: 3
+          }}onPress={() => {RootNavigation.navigate('kakaoLogin')}}
+        >
+          <Text style = {styles.logoutText}>로그인</Text>
+          
+        </TouchableOpacity>
       </View>
     );}else{
       return (
@@ -104,6 +119,34 @@ export const CustomDrawer = props => {
           </View>
           <DrawerItemList {...props} />
         </DrawerContentScrollView>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 10,
+            left: 10,
+            bottom: 90,
+            backgroundColor: '#009DAE',
+            padding: 10,
+            borderRadius: 3
+          }}onPress={() => {Linking.openURL("https://forms.gle/21uVV8DzCwSFHiUh9")}}
+        >
+          <Text style = {styles.logoutText}>피드백</Text>
+          
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 10,
+            left: 10,
+            bottom: 40,
+            backgroundColor: '#009DAE',
+            padding: 10,
+            borderRadius: 3
+          }}onPress={() => {global.id = "";Alert.alert("로그아웃 완료", "로그아웃이 완료되었습니다.");RootNavigation.navigate("MainPage")}}
+        >
+          <Text style = {styles.logoutText}>로그아웃</Text>
+          
+        </TouchableOpacity>
       </View>
     );
     }

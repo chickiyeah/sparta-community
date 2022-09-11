@@ -23,43 +23,21 @@ export function getParamNames(func) {
 }
 export default function loginsuccess({route, navigation}){
 
-    const[data,setdata] = useState()
 
-    useEffect(() => {
-      firebase_db.ref(`/user/${id}`).once('value').then((user) => {
-        if(user.hasChildren() == false){
-          setdata("nodata")
-        }else{
-          setdata("hasdata")
-        }
-      })
-    })
-    let {service} = route.params;
+    let user = route.params
 
-    if(service == "kakao"){
-      let {nickname,profile_image,birthday,email,id,gender} = route.params
-      console.log("g",{gender})
-      global.name = {nickname}
-      global.profile_image = {profile_image}
-      global.birthday = {birthday}
-      global.id = String({id}.id)
-      global.email = {email}
-      global.service = {service}
-      global.gender = {gender}
-      console.log(global.id)
+      global.name = user.name
+      global.profile_image = `https://spartacodingclub.kr/v5/images/profile/${user.profile}.png`
+      global.id = user.id
+      global.email = user.email
+      global.service = "스파르타코딩클럽"
      
-      if(data == "nodata"){
         firebase_db.ref(`/user/${global.id}/name`).set(nickname)
         firebase_db.ref(`/user/${global.id}/email`).set(email)
         firebase_db.ref(`/user/${global.id}/birthday`).set(birthday)
-        firebase_db.ref(`/user/${global.id}/service`).set(service)
         firebase_db.ref(`/user/${global.id}/profile_image`).set(profile_image)
-        
-        firebase_db.ref(`/user/${global.id}/gender`).set(gender)
-        
-      }
+        firebase_db.ref(`/user/${global.id}/service`).set(service)
       navigation.reset({index: 0, routes:[{name:'MainPage'}]})
-    }
 
     if(service == "naver"){
       let {nickname,profile_image,birthday,email,id,gender,mobile,mobile_e164,birthyear,name} = route.params
