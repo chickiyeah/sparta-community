@@ -1,5 +1,5 @@
 import React,{useState, useEffect, PureComponent} from 'react';
-import RN, {BackHandler, ScrollView, Text, StyleSheet, Button, Image, View, useWindowDimensions, Share, Animated } from 'react-native';
+import RN, {BackHandler, ScrollView, Text, StyleSheet, Button, Image, View, useWindowDimensions, Share, Animated, Alert } from 'react-native';
 import SpartaCardComment from '../components/SpartaCardComment';
 import * as Linking from 'expo-linking';
 import AutoHeightImage from "react-native-auto-height-image";
@@ -37,6 +37,7 @@ export default function Detailsparta({route, navigation, beforeid}){
       '>',
     )
     
+    /** 스트링을 object로 바꿔주는 함수 (스트링(한줄만), 결과값을 담을 리스트)*/
     function mapStringToComponent(stringToRender, list) {
       let haslt = false
       let hasgt = false
@@ -209,8 +210,9 @@ export default function Detailsparta({route, navigation, beforeid}){
       }
     }
     function uploadcomment() {
-        let data = JSON.parse(`{"attachFiles": [],"content": "<p> (기분이) </p>","postId": "631db3a66a94af1725ae5b84","userId": "626be1411d008bf29af0e436"}`)
+        let data = JSON.parse(`{"attachFiles": [],"content": "<p> null </p>","postId": "null","userId": "null"}`)
         console.log(data)
+        Alert.alert("주의", "실제로 업로드 하는 기능은 없으며 그저 json생성용임을 알려드립니다. 데이터  :  "+JSON.stringify(data))
         var returnValue = "none";
 
         var request_token_url = `https://api.scc.spartacodingclub.kr/community/631db3a66a94af1725ae5b84/comment`;
@@ -291,7 +293,7 @@ export default function Detailsparta({route, navigation, beforeid}){
                             imagelist.push(image+image2.split('undefined')[1].replace('\">',""))
                         })
                     }
-                    console.log(author, id, desc, createdAt, isTutor, isWriter, profile, imagelist)
+                    //console.log(author, id, desc, createdAt, isTutor, isWriter, profile, imagelist)
                     desc = desc.replace(/\r/gi, "")
                     desc = desc.replace(/<p><br><\/p>/g, "")
                     desc = desc.replace(/<\/p>/g, '\n')
@@ -527,7 +529,7 @@ if(global.selpage.toString() == "free"){
                 }   
                 </ScrollView>
                 <View style={styles.input}>
-                  <Button></Button>
+                <Button title='업로드' onPress={()=> {uploadcomment()}}></Button>
                 </View>
             </ScrollView>
         )        
@@ -549,7 +551,7 @@ if(global.selpage.toString() == "free"){
           
           </View>
           <View style={styles.input}>
-
+          <Button title='업로드' onPress={()=> {uploadcomment()}}></Button>
           </View>
       </ScrollView>
   )        

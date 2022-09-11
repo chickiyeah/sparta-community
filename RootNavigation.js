@@ -2,6 +2,7 @@ import { createNavigationContainerRef } from '@react-navigation/native';
 
 export const navigationRef = createNavigationContainerRef()
 
+/**루트 네비게이터 */
 export function navigate(name, params) {
   if (navigationRef.isReady()) {
     navigationRef.navigate(name, params);
