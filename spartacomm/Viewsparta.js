@@ -10,13 +10,32 @@ import MainHeaderJa from "../components/MainHeaderJa"
 import sparta from './sparta';
 import '../global.js'
 import { ToastAlert } from '../components/Alert';
-import { connectStorageEmulator } from 'firebase/storage';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function Viewsparta({navigation, route}) {
     const [tip, setTip] = useState([])
     const [ready,setReady] = useState(true)
     const [text, setText] = useState('')
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(null);
     let loaded = false
+
+    const [Caterory, setCategory] = useState([
+      {label: '최신순', value: 'latest'},
+      {label: '추천순', value: 'best'},
+    ]);
+    const [open1, setOpen1] = useState(false);
+    const [value1, setValue1] = useState(null);
+    const [Caterory1, setCategory1] = useState([
+      {label: '0주차', value: '0'},
+      {label: '1주차', value: '1'},
+      {label: '2주차', value: '2'},
+      {label: '3주차', value: '3'},
+      {label: '4주차', value: '4'},
+      {label: '5주차', value: '5'},
+      {label: '전체 주차', value: ''},
+    ]);
+
     useEffect(() => {
       setTip(route.params.array)
     })
@@ -67,23 +86,52 @@ export default function Viewsparta({navigation, route}) {
         <ScrollView style={styles.container}>
             <TouchableOpacity style={styles.refresh} onPress={() => {global.search = "false",navigation.reset({index: 0, routes:[{name:'sparta'}]})}}><Text style={styles.refreshtext}>즉문즉답 눌러서 새로 고침</Text></TouchableOpacity>
               <MainHeader/>
+              <ScrollView style={{flex:1,zIndex:9}} horizontal>
+              <DropDownPicker style={{zIndex:9, width: "50%"}}
+     placeholder='최신순'
+      open={open}
+      value={value}
+      items={Caterory}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setCategory}
+      scrollViewProps={true}
+    />
+                  <DropDownPicker style={{width: "50%",zIndex:9}}
+     placeholder='전체 주차'
+      open={open1}
+      value={value1}
+      items={Caterory1}
+      setOpen={setOpen1}
+      setValue={setValue1}
+      setItems={setCategory1}
+      scrollViewProps={true}
+      listMode="SCROLLVIEW"
+    />
+    </ScrollView>
+          <View style={{zIndex:2}}>
               <TextInput style = {{backgroundColor:"gray",height:50}} placeholder={"검색할 것을 입력하세요."} onChangeText={(keyworld) => {setText(keyworld)}}></TextInput>
               <Button title='검색'  onPress={() => {search()}}></Button>
+              </View>
               {
                    tip.map((content,i)=>{
                     if(global.search == "true"){
                       if((content.title.includes(global.search_keyword) || content.desc.includes(global.search_keyword) || content.author.includes(global.search_keyword)) == true){
                         return(
-                        <SpartaCard key={i} content={content} navigation={navigation}/>)
+                        <View style={{zIndex:2}}>
+                        <SpartaCard key={i} content={content} navigation={navigation}/>
+                        </View>)
                         }
                       }else{
                         return(
-                          <SpartaCard key={i} content={content} navigation={navigation}/>)
+                          <View style={{zIndex:2}}>
+                          <SpartaCard key={i} content={content} navigation={navigation}/>
+                          </View>)
                                                   
                       }
                    })
                }
-          <View>
+          <View style={{zIndex:2}}>
             <Text style={styles.searchinfo}>검색을 사용하신경우 모든 데이터가 1페이지에 표시됩니다!</Text>
             <Text style={styles.searchinfo}>검색상태를 헤제하고 싶으시다면 새로고침을 눌러주세요!</Text>
           </View>
@@ -98,6 +146,15 @@ export default function Viewsparta({navigation, route}) {
       <ScrollView style={styles.container}>
           <TouchableOpacity style={styles.refresh} onPress={() => {global.search = "false",navigation.reset({index: 0, routes:[{name:'spartaja'}]})}}><Text style={styles.refreshtext}>눌러서 새로 고침</Text></TouchableOpacity>
             <MainHeaderJa/>
+            <DropDownPicker
+     placeholder='카테고리를 선택하세요.'
+      open={open}
+      value={value}
+      items={Caterory}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setCategory}
+    />
             <TextInput style = {{backgroundColor:"gray",height:50}} placeholder={"검색할 것을 입력하세요."} onChangeText={(keyworld) => {setText(keyworld)}}></TextInput>
               <Button title='검색'  onPress={() => {searchja()}}></Button>
             {
@@ -136,7 +193,8 @@ const styles = StyleSheet.create({
       marginBottom:5
     },
     container:{
-        backgroundColor:"#fff"
+        backgroundColor:"#fff",
+        zIndex:1
     },
     refresh: {
         backgroundColor:"pink",

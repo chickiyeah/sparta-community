@@ -143,6 +143,7 @@ export const CustomDrawer = props => {
             padding: 10,
             borderRadius: 3
           }}onPress={() => {global.id = "";Alert.alert("로그아웃 완료", "로그아웃이 완료되었습니다.");RootNavigation.navigate("MainPage")}}
+        
         >
           <Text style = {styles.logoutText}>로그아웃</Text>
           

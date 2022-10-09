@@ -137,7 +137,7 @@ export default function sparta({navigation, route}){
 
         }).catch(function (error) {
 
-          Alert.alert('오류 발생', error.message);
+          Alert.alert('서버와 통신중에 오류가 발생했습니다.', error.message);
           navigation.navigate('MainPage')
 
 

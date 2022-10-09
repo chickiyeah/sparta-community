@@ -9,7 +9,7 @@ import axios from 'axios';
 import '../global.js';
 import { SliderBox } from 'react-native-image-slider-box';
 import RNJsxParser from 'react-native-jsx-parser'
-import { copyAsync } from 'expo-file-system';
+import '../global.js'
 loaded = false;
 
 
@@ -209,8 +209,12 @@ export default function Detailsparta({route, navigation, beforeid}){
           curcourse = `즉문즉답 > ${courseTitle} > ${week}주차`
       }
     }
+
+    /** 댓글을 업로드 하는 함수 (실 동작 X) */
     function uploadcomment() {
-        let data = JSON.parse(`{"attachFiles": [],"content": "<p> null </p>","postId": "null","userId": "null"}`)
+        let data = JSON.parse(`{"attachFiles": [],"content": "<p> null </p>"}`)
+        data.UserId = global.id
+        data.postId = '631db3a66a94af1725ae5b84'
         console.log(data)
         Alert.alert("주의", "실제로 업로드 하는 기능은 없으며 그저 json생성용임을 알려드립니다. 데이터  :  "+JSON.stringify(data))
         var returnValue = "none";
@@ -218,7 +222,8 @@ export default function Detailsparta({route, navigation, beforeid}){
         var request_token_url = `https://api.scc.spartacodingclub.kr/community/631db3a66a94af1725ae5b84/comment`;
 
  
-
+       
+        console.log(data)
         /*axios({
 
             method: "post",
@@ -250,7 +255,7 @@ export default function Detailsparta({route, navigation, beforeid}){
         });*/
 
     }
-
+    /** 댓글을 가져오고 읽을수 있게 다듬는 함수 */
     function getcomment() {
 
         if(loaded == false){ //로드할려는 데이터가 같은 거인 경우 무한 반복으로 실행되는 버그 수정!
@@ -449,6 +454,7 @@ else if(chai < 1000 * 60 * 60 * 24 * 30 * 12)
 date = `${date[0]}년 ${date[1]}월 ${date[2]}일 ${aa} ${hour}시 ${time[1]}분 `
 }
 
+/** 공유기능 */
 const share = () => {
 if(global.selpage.toString() == "free"){
   Share.share({

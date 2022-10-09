@@ -138,7 +138,7 @@ return (
 
                 style={{ marginTop: 30 }}
 
-                source={{ uri: 'https://kauth.kakao.com/oauth/logout?response_type=code&client_id=2e726e0391587bdf6db6c878ca69e208&logout_redirect_uri=https://auth.expo.io/@ruddls030/sparta-myhoneytip-nkw' }}
+                source={{ uri: 'https://kauth.kakao.com/oauth/logout?response_type=code&client_id=e97351b42b29c3d0518f85d0368a8985&logout_redirect_uri=https://online.spartacodingclub.kr/api/v1/oauth/kakao/login' }}
 
                 injectedJavaScript={runFirst}
 
