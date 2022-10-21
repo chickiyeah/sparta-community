@@ -31,12 +31,14 @@ export default function loginsuccess({route, navigation}){
       global.id = user.id
       global.email = user.email
       global.service = "스파르타코딩클럽"
+
      
         firebase_db.ref(`/user/${global.id}/name`).set(nickname)
         firebase_db.ref(`/user/${global.id}/email`).set(email)
         firebase_db.ref(`/user/${global.id}/birthday`).set(birthday)
         firebase_db.ref(`/user/${global.id}/profile_image`).set(profile_image)
         firebase_db.ref(`/user/${global.id}/service`).set(service)
+        firebase_db.ref(`/user/${global.id}/phone`).set(user.phone)
       navigation.reset({index: 0, routes:[{name:'MainPage'}]})
 
     if(service == "naver"){
