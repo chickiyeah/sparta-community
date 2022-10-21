@@ -127,7 +127,7 @@ export default function kakaoLogin({ navigation }) {
             // 토큰값 받기
 
             //requestToken(request_code);
-            requestSparta(request_code);
+            requestSparta(request_code, phone);
 
         }*/
 
@@ -158,7 +158,7 @@ function cachingAdapter(resolve, reject, config) {
     axios.defaults.adapter(resolve, reject, config);
   });
 }
-const requestSparta = async (token) => {
+const requestSparta = async (token, phone) => {
 
     var returnValue = "none";
 
@@ -188,6 +188,7 @@ const requestSparta = async (token) => {
         returnValue = response;
         console.log('token',response.data.user)
         user.name = response.data.user.name
+user.phone = phone
         user.profile = response.data.user.profile
         console.log('final user data', user)
         navigation.navigate('loginsuccess', user)
