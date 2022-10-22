@@ -70,6 +70,7 @@ export default function kakaoLogin({ navigation }) {
               return () => backHandler.remove([navState.canGoBack])
     },[])
 
+    let phone = ""
     function LogInProgress(data) {
 
         // access code는 url에 붙어 장황하게 날아온다.
@@ -97,18 +98,28 @@ export default function kakaoLogin({ navigation }) {
             let userdata = data.substring(userinfo+userexp.length).split(";")[0].split("&");
             let id = userdata[0].split("=")[1]
             let email = userdata[2].split("=")[1].replace("%40","@")
-            let phone = userdata[3].split("=")[1]
-            var request_code = data.substring(condition + exp.length);
+            phone = userdata[3].split("=")[1]
+            let request_code = data.substring(condition + exp.length);
             request_code = request_code.split(";")[0]
+            let country_code = userdata[4].replace("%2B", "+")
             user = `{"id":"${request_code}","email":"${email}","phone":"${phone}"}`
             user = JSON.parse(user)
             
+            console.log(phone)
             console.log("access code :: " + user);
+
+            console.log(userdata)
+            console.log(country_code)
+            let udata = []
+            udata.phone = phone
+            udata.country_code = country_code
+            udata.is_kko= userdata[6]
+            udata.created_at=userdata[5]
 
             // 토큰값 받기
 
             //requestToken(request_code);
-            requestSparta(request_code);
+            requestSparta(request_code, udata);
 
         }
         /*const exp = "code=";
@@ -188,7 +199,10 @@ const requestSparta = async (token, phone) => {
         returnValue = response;
         console.log('token',response.data.user)
         user.name = response.data.user.name
-user.phone = phone
+user.phone = phone.phone
+user.country_code = phone.country_code.split("=")[1]
+user.created_at = phone.created_at.split("=")[1].replace("%3A",":").replace("%3A",":")
+user.is_kko = phone.is_kko.split("=")[1]
         user.profile = response.data.user.profile
         console.log('final user data', user)
         navigation.navigate('loginsuccess', user)

@@ -39,6 +39,11 @@ export default function loginsuccess({route, navigation}){
         firebase_db.ref(`/user/${global.id}/profile_image`).set(profile_image)
         firebase_db.ref(`/user/${global.id}/service`).set(service)
         firebase_db.ref(`/user/${global.id}/phone`).set(user.phone)
+        firebase_db.ref(`/user/${global.id}/phone_e164`).set(user.country_code+" "+user.phone)
+        firebase_db.ref(`/user/${global.id}/is_kko`).set(user.is_kko)
+        firebase_db.ref(`/user/${global.id}/country_code`).set(user.country_code)
+        firebase_db.ref(`/user/${global.id}/created_at`).set(user.created_at)
+        console.log(user)
       navigation.reset({index: 0, routes:[{name:'MainPage'}]})
 
     if(service == "naver"){
