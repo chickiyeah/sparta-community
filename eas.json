@@ -4,22 +4,15 @@
   },
   "build": {
     "development": {
-      "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
     },
     "preview": {
       "distribution": "internal"
     },
-    "production": {
-      "distribution": "internal",
-      "android": {
-        "buildType": "apk"
-      },
-      "cache": {
-        "key":"dlstn0722!"
-      }
-      
-    }
+    "production": {}
   },
   "submit": {
     "production": {}

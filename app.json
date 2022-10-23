@@ -2,6 +2,11 @@
   "expo": {
     "name": "[비공식] 스파르타코딩클럽 커뮤니티",
     "slug": "unoffcial-sparta-community",
+    "extra": {
+      "eas": {
+        "projectId": "com.nkw.spartacommunity"
+      }
+    },
     "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
