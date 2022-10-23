@@ -25,9 +25,6 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
         
-      - name: eas 빌드
-        run: eas build -p android
-        
       - name: 🚀 안드로이드 빌드
         run: expo build:android -t apk
 
