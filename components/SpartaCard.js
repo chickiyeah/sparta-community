@@ -278,6 +278,7 @@ descsplit.map((value, i) => {
     
     date = `${date[0]}년 ${date[1]}월 ${date[2]}일 ${aa} ${hour}시 ${time[1]}분 ${time[2]}초 `
     let keyworld = global.search_keyword
+    console.log(content.authordata.userId)
           return(
               //카드 자체가 버튼역할로써 누르게되면 상세페이지로 넘어가게끔 TouchableOpacity를 사용
               <TouchableOpacity style={styles.card} onPress={() => detail()}>

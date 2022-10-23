@@ -70,7 +70,7 @@ export default function Viewsparta({navigation, route}) {
       global.search = "true"
       global.search_keyword = text
       page = 1
-      ToastAlert(`검색의 경우 1페이지에 모든 데이터가 표시됩니다!`)
+      //ToastAlert(`검색의 경우 1페이지에 모든 데이터가 표시됩니다!`)
       navigation.navigate('sparta', {navigation, page})
      }
 
@@ -78,15 +78,15 @@ export default function Viewsparta({navigation, route}) {
       global.search = "true"
       global.search_keyword = text
       page = 1
-      ToastAlert(`검색의 경우 1페이지에 모든 데이터가 표시됩니다!`)
+      //ToastAlert(`검색의 경우 1페이지에 모든 데이터가 표시됩니다!`)
       navigation.navigate('spartaja', {navigation, page})
+      
      }
   if(global.selpage == "quiz"){
     return (
         <ScrollView style={styles.container}>
-            <TouchableOpacity style={styles.refresh} onPress={() => {global.search = "false",navigation.reset({index: 0, routes:[{name:'sparta'}]})}}><Text style={styles.refreshtext}>즉문즉답 눌러서 새로 고침</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.refresh} onPress={() => {global.search = "false",global.user_write = "false",navigation.reset({index: 0, routes:[{name:'sparta'}]})}}><Text style={styles.refreshtext}>즉문즉답 눌러서 새로 고침</Text></TouchableOpacity>
               <MainHeader/>
-              <ScrollView style={{flex:1,zIndex:9}} horizontal>
               <DropDownPicker style={{zIndex:9, width: "50%"}}
      placeholder='최신순'
       open={open}
@@ -97,7 +97,7 @@ export default function Viewsparta({navigation, route}) {
       setItems={setCategory}
       scrollViewProps={true}
     />
-                  <DropDownPicker style={{width: "50%",zIndex:9}}
+                  <DropDownPicker style={{width: "50%",zIndex:8}}
      placeholder='전체 주차'
       open={open1}
       value={value1}
@@ -108,7 +108,6 @@ export default function Viewsparta({navigation, route}) {
       scrollViewProps={true}
       listMode="SCROLLVIEW"
     />
-    </ScrollView>
           <View style={{zIndex:2}}>
               <TextInput style = {{backgroundColor:"gray",height:50}} placeholder={"검색할 것을 입력하세요."} onChangeText={(keyworld) => {setText(keyworld)}}></TextInput>
               <Button title='검색'  onPress={() => {search()}}></Button>
@@ -118,13 +117,13 @@ export default function Viewsparta({navigation, route}) {
                     if(global.search == "true"){
                       if((content.title.includes(global.search_keyword) || content.desc.includes(global.search_keyword) || content.author.includes(global.search_keyword)) == true){
                         return(
-                        <View style={{zIndex:2}}>
+                        <View style={{zIndex:3}}>
                         <SpartaCard key={i} content={content} navigation={navigation}/>
                         </View>)
                         }
                       }else{
                         return(
-                          <View style={{zIndex:2}}>
+                          <View style={{zIndex:4}}>
                           <SpartaCard key={i} content={content} navigation={navigation}/>
                           </View>)
                                                   
@@ -132,8 +131,8 @@ export default function Viewsparta({navigation, route}) {
                    })
                }
           <View style={{zIndex:2}}>
-            <Text style={styles.searchinfo}>검색을 사용하신경우 모든 데이터가 1페이지에 표시됩니다!</Text>
-            <Text style={styles.searchinfo}>검색상태를 헤제하고 싶으시다면 새로고침을 눌러주세요!</Text>
+
+            <Text style={styles.searchinfo}>검색 / 특정 작성자의 글보기 상태를 헤제하고 싶으시다면 새로고침을 눌러주세요!</Text>
           </View>
             <View style={styles.button}>
              <Button style={styles.buttonleft} title="이전 페이지" disabled={page == 1} onPress={goBack} />
@@ -144,7 +143,7 @@ export default function Viewsparta({navigation, route}) {
   }else{
     return (
       <ScrollView style={styles.container}>
-          <TouchableOpacity style={styles.refresh} onPress={() => {global.search = "false",navigation.reset({index: 0, routes:[{name:'spartaja'}]})}}><Text style={styles.refreshtext}>눌러서 새로 고침</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.refresh} onPress={() => {global.search = "false",global.user_write = "false",navigation.reset({index: 0, routes:[{name:'spartaja'}]})}}><Text style={styles.refreshtext}>눌러서 새로 고침</Text></TouchableOpacity>
             <MainHeaderJa/>
             <DropDownPicker
      placeholder='카테고리를 선택하세요.'
@@ -172,8 +171,8 @@ export default function Viewsparta({navigation, route}) {
                  })
              }
           <View>
-            <Text style={styles.searchinfo}>검색을 사용하신경우 모든 데이터가 1페이지에 표시됩니다!</Text>
-            <Text style={styles.searchinfo}>검색상태를 헤제하고 싶으시다면 새로고침을 눌러주세요!</Text>
+
+            <Text style={styles.searchinfo}>검색 / 특정 작성자의 글보기 상태를 헤제하고 싶으시다면 새로고침을 눌러주세요!</Text>
           </View>
           <View style={styles.button}>
            <Button style={styles.buttonleft} title="이전 페이지" disabled={page == 1 || global.search == "true"} onPress={goBackJa} />

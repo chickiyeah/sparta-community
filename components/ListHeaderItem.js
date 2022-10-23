@@ -16,6 +16,7 @@ export default function ListHeaderItem({ navigation, title }) {
 
 
     global.search = "false"
+    global.user_write = "false"
     global.course = course
     global.courseKeyword = courseKeyword
     RootNavigation.navigate('sparta', { course, courseKeyword });

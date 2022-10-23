@@ -397,6 +397,8 @@ function formatDate(date) {
 var write = new Date(content.createdAt);
 var now = new Date();
 
+
+
 let year = now.getFullYear()
 let month = now.getMonth()
 let day = now.getDate()
@@ -453,7 +455,12 @@ else if(chai < 1000 * 60 * 60 * 24 * 30 * 12)
 
 date = `${date[0]}년 ${date[1]}월 ${date[2]}일 ${aa} ${hour}시 ${time[1]}분 `
 }
-
+function user_write(){
+  global.user_write = "true"
+  global.user_write_id = content.authordata.userId
+  let page = 1
+  navigation.navigate('sparta', {navigation, page})
+}
 /** 공유기능 */
 const share = () => {
 if(global.selpage.toString() == "free"){
@@ -472,8 +479,9 @@ if(global.selpage.toString() == "free"){
             <ScrollView style={styles.main}> 
                 <View style={styles.cardText}>
                 <View style={styles.cardTop}>
-              <Image style={{ width: 20,height:20,margin:(0,0,0,3),resizeMode: 'contain',borderRadius:5}} source={{uri:content.profile}} />
+              <TouchableOpacity onPress={() => {user_write()}}><Image style={{ width: 20,height:20,margin:(0,0,0,3),resizeMode: 'contain',borderRadius:5}} source={{uri:content.profile}} /></TouchableOpacity>
                 <Text style={styles.cardTitle} numberOfLines={1}> {content.author}</Text>
+
                 <TouchableOpacity onPress={() => {share()}}><Image style={{ width: 20,height:20,margin:(0,0,0,3),resizeMode: 'contain',borderRadius:5}} source={require('../assets/share.png')}></Image></TouchableOpacity>
               </View>
                     <Text style={styles.cardTitle}>{content.title}</Text>
@@ -513,7 +521,7 @@ if(global.selpage.toString() == "free"){
             <ScrollView style={styles.main}> 
                 <View style={styles.cardText}>
                 <View style={styles.cardTop}>
-              <Image style={{ width: 20,height:20,margin:(0,0,0,3),resizeMode: 'contain',borderRadius:5}} source={{uri:content.profile}} />
+                <TouchableOpacity onPress={() => {user_write()}}><Image style={{ width: 20,height:20,margin:(0,0,0,3),resizeMode: 'contain',borderRadius:5}} source={{uri:content.profile}} /></TouchableOpacity>
                 <Text style={styles.cardTitle} numberOfLines={1}> {content.author}</Text>
                 <TouchableOpacity onPress={() => {share()}}><Image style={{ width: 20,height:20,margin:(0,0,0,3),resizeMode: 'cover',borderRadius:5}} source={require('../assets/share.png')}></Image></TouchableOpacity>
               </View>

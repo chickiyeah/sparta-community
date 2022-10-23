@@ -7,6 +7,8 @@ global.course = []
 global.courseKeyword = []
 global.mode = []
 global.nowpage = []
+global.user_write = []
+global.user_write_id = []
 
 //미사용
 global.name = []

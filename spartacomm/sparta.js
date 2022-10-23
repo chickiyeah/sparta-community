@@ -15,30 +15,41 @@ import '../global.js'
 export default function sparta({navigation, route}){
   
 
-    const loading = require("../assets/loading.gif");
+    
+  const loading = require("../assets/loading.gif");
     //console.log(`https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&course=${global.course}&pageChunkSize=9999&curPage=${page}&userId=626be1411d008bf29af0e436&courseKeyword=${global.courseKeyword}&`)
+  /** 스파르타 api와 통신하여데이터 가져오기 */
     const requestList = async (page) => {
       if(global.course.length > 0){
+        // 과목선택이 된 검색
         if(global.search == "true"){
           var returnValue = "none";
 
-          var request_token_url = `https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&course=${global.course}&pageChunkSize=9999&curPage=${page}&userId=626be1411d008bf29af0e436&courseKeyword=${global.courseKeyword}&`;
+          var request_token_url = `https://api.scc.spartacodingclub.kr/community?text=${global.search_keyword}&channelName=fastqna&sort=latest&course=${global.course}&pageChunkSize=10&curPage=${page}&courseKeyword=${global.courseKeyword}&`;
         }else{
 
           var returnValue = "none";
 
-          var request_token_url = `https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&course=${global.course}&pageChunkSize=10&curPage=${page}&userId=626be1411d008bf29af0e436&courseKeyword=${global.courseKeyword}&`;
+          var request_token_url = `https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&course=${global.course}&pageChunkSize=10&curPage=${page}&courseKeyword=${global.courseKeyword}&`;
         }
       }else{
+        // 과목선택이 안된 검색
         if(global.search == "true"){
           var returnValue = "none";
 
-          var request_token_url = `https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&pageChunkSize=9999&curPage=${page}`;
+          var request_token_url = `https://api.scc.spartacodingclub.kr/community?text=${global.search_keyword}&channelName=fastqna&sort=latest&pageChunkSize=10&curPage=${page}`;
         }else{
+          if(global.user_write == "true"){
+            var returnValue = "none";
 
-          var returnValue = "none";
+            var request_token_url = `https://api.scc.spartacodingclub.kr/community-user/${global.user_write_id}/posts/?sort=latest&pageChunkSize=10&curPage=${page}&activityStatus=posts&userId=${global.user_write_id}&`;
+          }else{
 
-          var request_token_url = `https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&pageChunkSize=10&curPage=${page}`;
+            var returnValue = "none";
+
+            var request_token_url = `https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&pageChunkSize=10&curPage=${page}`;
+          }
+
         }
       }
 
@@ -61,6 +72,7 @@ export default function sparta({navigation, route}){
                 
                 let id = content._id
                 let author = content.author.name
+                let authordata = content.author
                 let profile = `https://spartacodingclub.kr/v5/images/profile/${content.author.profile}.png`
                 let commentCount = content.commentCount
                 let title = content.title
@@ -125,7 +137,7 @@ export default function sparta({navigation, route}){
                 
                 
                 let comm = {
-                    author, commentCount, title, id, status, answeredDate, firstViewedDate, viewCount, week, desc, createdAt, courseTitle, imagelist, profile, codesnipet, likeCount
+                    author, commentCount, title, id, status, answeredDate, firstViewedDate, viewCount, week, desc, createdAt, courseTitle, imagelist, profile, codesnipet, likeCount, authordata
                 }
                 array.push(comm)
                 
@@ -137,7 +149,7 @@ export default function sparta({navigation, route}){
 
         }).catch(function (error) {
 
-          Alert.alert('서버와 통신중에 오류가 발생했습니다.', error.message);
+          //Alert.alert('서버와 통신중에 오류가 발생했습니다.', error.message);
           navigation.navigate('MainPage')
 
 
