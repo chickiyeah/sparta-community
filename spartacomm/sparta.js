@@ -49,6 +49,8 @@ export default function sparta({navigation, route}){
 
             var request_token_url = `https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&pageChunkSize=10&curPage=${page}`;
           }
+          //https://spartacodingclub.kr/community/fastqna/all?curPage=2&pageChunkSize=10
+          //https://api.scc.spartacodingclub.kr/community?channelName=fastqna&sort=latest&pageChunkSize=10&curPage=${page}
 
         }
       }
@@ -60,19 +62,24 @@ export default function sparta({navigation, route}){
             method: "get",
 
             url: request_token_url,
-
+            
             withCredentials:true,
+
+            headers:{
+              Authorization:"!0"
+            }
 
 
         }).then(function (response) {
             returnValue = response.data.data;
             let array = []
-            returnValue.map((content ,i) => {
+            console.log(response)
+            /*returnValue.map((content ,i) => {
                 //console.log(i, content)
                 
                 let id = content._id
                 let author = content.author.name
-                let authordata = content.author
+                 
                 let profile = `https://spartacodingclub.kr/v5/images/profile/${content.author.profile}.png`
                 let commentCount = content.commentCount
                 let title = content.title
@@ -141,16 +148,16 @@ export default function sparta({navigation, route}){
                 }
                 array.push(comm)
                 
-            })
-            navigation.navigate('Viewsparta',{navigation, array, page})
+            })*/
+            //navigation.navigate('Viewsparta',{navigation, array, page})
             
 
  
 
         }).catch(function (error) {
-
-          //Alert.alert('서버와 통신중에 오류가 발생했습니다.', error.message);
-          navigation.navigate('MainPage')
+          console.log(error.response)
+          Alert.alert('서버와 통신중에 오류가 발생했습니다.', error.message);
+          //navigation.navigate('MainPage')
 
 
         });
