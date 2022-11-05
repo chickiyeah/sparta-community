@@ -2,11 +2,6 @@
   "expo": {
     "name": "[비공식] 스파르타코딩클럽 커뮤니티",
     "slug": "unoffcial-sparta-community",
-    "extra": {
-      "eas": {
-        "projectId": "com.nkw.spartacommunity"
-      }
-    },
     "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,38 +19,43 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "1.0.7",
-      "bundleIdentifier": "com.nkw.spartacommunity",
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-8113412540427082~9712022613"
-      }
+      "bundleIdentifier": "com.nkw.spartacommunity"
     },
     "android": {
-      "package": "com.nkw.spartacommunity",
-       "versionCode": 12,
-       "googleServicesFile": "./google-service.json",
-       "useNextNotificationsApi": true,
-       "permissions": ["READ_EXTERNAL_STORAGE"],
-
-        "config": {
-          "googleMobileAdsAppId": "ca-app-pub-8113412540427082~5994987500"
-        }
-      
-  },
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "permissions": ["READ_EXTERNAL_STORAGE"],
+      "package": "com.nkw.spartacommunity"
+    },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "config": {
-        "firebase": {
-          "apiKey": "AIzaSyCES-Kjibi7k9dUe5LEGMEvqV-2TeDIblE",
-          "authDomain": "sparta-myhoneytip-nkw.firebaseapp.com",
-          "databaseURL": "https://sparta-myhoneytip-nkw-default-rtdb.firebaseio.com",
-          "projectId": "sparta-myhoneytip-nkw",
-          "storageBucket": "sparta-myhoneytip-nkw.appspot.com",
-          "messagingSenderId": "53440918166",
-          "appId"  : "1:53440918166:android:640d95b1d51e9857df08b7",       
-          "measurementId": "G-LZ8LSC550R"
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 31,
+            "targetSdkVersion" : 31,
+            "buildToolsVersion" : "31.0.0"
+          },
+          "ios": {
+            "useFrameworks": "static",
+            "deploymentTarget": "13.0"
+          }
         }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "96d3e8de-75cc-4975-baee-6846b4acfab0"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-8113412540427082~5994987500",
+    "ios_app_id": "ca-app-pub-8113412540427082~9712022613"
   }
 }

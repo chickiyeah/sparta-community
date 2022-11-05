@@ -1,3 +1,6 @@
+//app id web //1:53440918166:web:5eac77d46dbcc944df08b7
+//app id android //1:53440918166:android:640d95b1d51e9857df08b7
+
 import React,{ useRef } from 'react';
 //이제 모든 페이지 컴포넌트들이 끼워져있는 책갈피를 메인에 둘예정이므로
 //컴포넌트를 더이상 불러오지 않아도 됩니다.

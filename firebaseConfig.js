@@ -13,11 +13,11 @@ import { getStorage } from "firebase/storage";
 const firebaseConfig = {
    apiKey: "AIzaSyCES-Kjibi7k9dUe5LEGMEvqV-2TeDIblE",
    authDomain: "sparta-myhoneytip-nkw.firebaseapp.com",
-   databaseURL: "https://sparta-myhoneytip-nkw-default-rtdb.firebaseio.com",
    projectId: "sparta-myhoneytip-nkw",
+   databaseURL: "https://sparta-myhoneytip-nkw-default-rtdb.firebaseio.com",
    storageBucket: "sparta-myhoneytip-nkw.appspot.com",
    messagingSenderId: "53440918166",
-   appId: "1:53440918166:android:640d95b1d51e9857df08b7",
+   appId: "1:53440918166:web:5eac77d46dbcc944df08b7",
    measurementId: "G-LZ8LSC550R"
 };
 
