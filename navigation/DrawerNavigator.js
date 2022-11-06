@@ -91,7 +91,7 @@ export const CustomDrawer = props => {
             backgroundColor: '#009DAE',
             padding: 10,
             borderRadius: 3
-          }}onPress={() => {RootNavigation.navigate('kakaoLogin')}}
+          }}onPress={() => {RootNavigation.navigate('SelectLogin')}}
         >
           <Text style = {styles.logoutText}>로그인</Text>
           

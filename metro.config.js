@@ -4,7 +4,8 @@ const config = getDefaultConfig(__dirname);
 
 config.resolver.assetExts.push(
   // Adds support for `.db` files for SQLite databases
-  'db','cjs','fs','json'
+  //js너으면 서버 안켜짐
+  'jsx','db','cjs','fs','json'
 );
 
 module.exports = config;

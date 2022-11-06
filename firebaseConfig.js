@@ -2,7 +2,7 @@
 import firebase from 'firebase/compat/app';
 
 // 사용할 파이어베이스 서비스 주석을 해제합니다
-import "firebase/compat/auth";
+import "firebase/auth";
 import "firebase/compat/database";
 import "firebase/compat/firestore";
 //import "firebase/functions";
@@ -37,6 +37,21 @@ export const auth = firebase.auth();
     firebase.initializeApp(firebaseConfig);
 }*/
 export const firebase_db = firebase.database()
-
 const storage = getStorage(app);
+/*auth()
+  .createUserWithEmailAndPassword('jane.doe@example.com', 'SuperSecretPassword!')
+  .then(() => {
+    console.log('계정을 생성했습니다.');
+  })
+  .catch(error => {
+    if (error.code === 'auth/email-already-in-use') {
+      console.log('That email address is already in use!');
+    }
+
+    if (error.code === 'auth/invalid-email') {
+      console.log('That email address is invalid!');
+    }
+
+    console.error(error);
+  });*/
 export default storage;

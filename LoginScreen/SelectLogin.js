@@ -1,9 +1,9 @@
 import React, {useState,useEffect}from 'react';
 
-import { StyleSheet,Text,View,Button, Alert, Image, ScrollView} from "react-native";
+import { StyleSheet,Text,View,Button, Alert, Image, TextInput} from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Loading from '../components/Loading';
-import {firebase_db} from "../firebaseConfig";
+//import {auth} from "../firebaseConfig";
 
 import WriteCardProfile from '../components/WriteCardProfile';
 import '../global.js'
@@ -13,7 +13,8 @@ export default function SelectLogin({navigation}) {
 
     const clientId =
     "53440918166-mghgh63e9rh5pj4k4jfjj3d8creg1alv.apps.googleusercontent.com";
-
+    const [ID, setID] = useState('');
+    const [PassWord, setPassWord] = useState('');
   async function onSuccess(res) {
     const profile = res.getBasicProfile();
     const userdata = {
@@ -23,6 +24,26 @@ export default function SelectLogin({navigation}) {
     }; 
     // 로그인 성공 후 실행하기 원하는 코드 작성.
   
+  }
+
+  const register = () => {
+    Alert.alert("id : "+ID+" password : "+PassWord)
+    auth
+  .createUserWithEmailAndPassword(ID, PassWord)
+  .then(() => {
+    console.log('계정을 생성했습니다.');
+  })
+  .catch(error => {
+    if (error.code === 'auth/email-already-in-use') {
+      console.log('That email address is already in use!');
+    }
+
+    if (error.code === 'auth/invalid-email') {
+      console.log('That email address is invalid!');
+    }
+
+    console.error(error);
+  });
   }
 
   const onFailure = (res) => {
@@ -37,7 +58,19 @@ export default function SelectLogin({navigation}) {
         <View style={styles.titlecontainer}>
             <Text style={styles.title}> 로그인할 플렛폼을 선택해주세요  </Text>
         </View>
-
+        <TextInput
+            value={ID}
+            onChangeText={(ID) => setID(ID)}
+            placeholder={'이메일'}
+            style={styles.inputDesc}
+            />
+        <TextInput
+            value={PassWord}
+            onChangeText={(PassWord) => setPassWord(PassWord)}
+            placeholder={'비밀번호'}
+            style={styles.inputDesc}
+            />    
+            <TouchableOpacity onPress={() => {register()}}><Text>가입하기</Text></TouchableOpacity>        
         <TouchableOpacity onPress={() => {navigation.navigate("kakaoLogin")}}><Image source={require('../assets/kakao_login_medium_wide.png')} style={styles.kakaologin}></Image></TouchableOpacity>
         <TouchableOpacity onPress={() => {navigation.navigate("NaverLogin")}}><Image source={require('../assets/btnG_완성형.png')} style={styles.Naverlogin}></Image></TouchableOpacity>
         <TouchableOpacity onPress={() => {global.search = "false",navigation.navigate("sparta")}}><Image source={{uri:'https://spartacodingclub.kr/v5/images/icon-beta.png'}} style={styles.Googlelogin}></Image></TouchableOpacity>
@@ -46,6 +79,15 @@ export default function SelectLogin({navigation}) {
 }
 
 const styles = StyleSheet.create({
+    inputDesc: {
+        width: 350,
+        height: 50,
+        padding: 10,
+        marginTop: 20,
+        marginBottom: 10,
+        marginLeft:20,
+        backgroundColor: '#e8e8e8'
+    },  
     container: {
         flex:1,
         //backgroundColor:"blue"
