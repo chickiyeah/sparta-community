@@ -1,4 +1,4 @@
-///import * as firebase from 'firebase/app';
+import * as firebase2 from 'firebase';
 import firebase from 'firebase/compat/app';
 
 // 사용할 파이어베이스 서비스 주석을 해제합니다
@@ -27,6 +27,25 @@ if (firebase.apps.length === 0) {
   app = firebase.initializeApp(firebaseConfig)
 } else {
   app = firebase.app();
+}
+
+export async function registration(nickName, email, password, navigation) {
+  try {
+    console.log(nickName, email, password)
+    await firebase2.auth().createUserWithEmailAndPassword(email, password);
+    const currentUser = firebase2.auth().currentUser;
+    const db = firebase2.firestore();
+    db.collection("users")
+      .doc(currentUser.uid)
+      .set({
+        email: currentUser.email,
+        nickName: nickName
+      });
+    Alert.alert("회원가입 성공!")
+
+  } catch (err) {
+    Alert.alert("무슨 문제가 있는 것 같아요! => ", err.message);
+  }
 }
 
 export const db = app.firestore();
