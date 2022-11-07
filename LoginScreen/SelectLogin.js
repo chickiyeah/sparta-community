@@ -3,7 +3,7 @@ import React, {useState,useEffect}from 'react';
 import { StyleSheet,Text,View,Button, Alert, Image, TextInput} from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Loading from '../components/Loading';
-//import {auth} from "../firebaseConfig";
+import { registration, login } from "../firebaseConfig";
 
 import WriteCardProfile from '../components/WriteCardProfile';
 import '../global.js'
@@ -27,24 +27,10 @@ export default function SelectLogin({navigation}) {
   }
 
   const register = () => {
-    Alert.alert("id : "+ID+" password : "+PassWord)
-    auth
-  .createUserWithEmailAndPassword(ID, PassWord)
-  .then(() => {
-    console.log('계정을 생성했습니다.');
-  })
-  .catch(error => {
-    if (error.code === 'auth/email-already-in-use') {
-      console.log('That email address is already in use!');
-    }
-
-    if (error.code === 'auth/invalid-email') {
-      console.log('That email address is invalid!');
-    }
-
-    console.error(error);
-  });
+    login(ID,PassWord,navigation)
   }
+
+
 
   const onFailure = (res) => {
     alert("구글 로그인에 실패하였습니다");
