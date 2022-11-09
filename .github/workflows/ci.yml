@@ -26,7 +26,7 @@ jobs:
         run: yarn install
         
       - name: 🚀 안드로이드 빌드 (eas)
-        run: eas build -p android --profile development -c
+        run: eas build -p android --profile development --clean-cache
 
       - name: 🚀 Publish app
         run: expo publish --non-interactive
