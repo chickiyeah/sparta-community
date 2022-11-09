@@ -1,5 +1,5 @@
 import React,{useState, useEffect, PureComponent} from 'react';
-import RN, {BackHandler, ScrollView, Text, StyleSheet, Alert, Image, View, useWindowDimensions, Button, Animated } from 'react-native';
+import RN, {BackHandler, ScrollView, Text, StyleSheet, Alert, Image, View, useWindowDimensions, Button, Animated, TextInput } from 'react-native';
 import SpartaCardComment from '../components/SpartaCardComment';
 import * as Linking from 'expo-linking';
 import AutoHeightImage from "react-native-auto-height-image";
@@ -15,7 +15,7 @@ loaded = false;
 export default function AboutGather({route, navigation, beforeid}){
   
 
-
+const [PassWord, setPassWord] = useState('');
     useEffect(() => {
 
         const backAction = () => {
@@ -216,6 +216,13 @@ export default function AboutGather({route, navigation, beforeid}){
           <View style={styles.cardDesc}>{list.map((value) => {return(value)})}</View>
           <Text style={styles.title}>시작까지 남은시간</Text>
           {b}
+<TextInput
+            value={PassWord}
+            onChangeText={(PassWord) => setPassWord(PassWord)}
+            placeholder={'비밀번호'}
+            style={styles.inputDesc}
+            />    
+{Text style={styles.title}>{PassWord}</Text>
           <Text style={{textAlign:"center",fontWeight:"500"}}>랙 유발로 인해 자동 새로고침 기능은 없습니다.</Text>
           <TouchableOpacity style={styles.middleButton04} onPress={()=>{goGather()}}><Text style={styles.middleButtonTextAll}>스온스 (게더)로 입장하기 ( 크롬 필수 )</Text></TouchableOpacity>
       </ScrollView>
