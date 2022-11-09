@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "[비공식] 스파르타코딩클럽 커뮤니티",
+    "name": "[비공식]",
     "slug": "unoffcial-sparta-community",
     "version": "1.0.7",
     "orientation": "portrait",
@@ -36,11 +36,6 @@
       [
         "expo-build-properties",
         {
-          "android": {
-            "compileSdkVersion": 31,
-            "targetSdkVersion" : 31,
-            "buildToolsVersion" : "31.0.0"
-          },
           "ios": {
             "useFrameworks": "static",
             "deploymentTarget": "13.0"
