@@ -1,10 +1,8 @@
 import React,{useState, useEffect, PureComponent} from 'react';
-import RN, {BackHandler, ScrollView, Text, StyleSheet, Alert, Image, View, useWindowDimensions, Button, Animated, TextInput } from 'react-native';
+import RN, {BackHandler, ScrollView, Text, StyleSheet, Alert, Image, View, useWindowDimensions, Button, Animated, TextInput, TouchableOpacity } from 'react-native';
 import SpartaCardComment from '../components/SpartaCardComment';
 import * as Linking from 'expo-linking';
 import AutoHeightImage from "react-native-auto-height-image";
-import { createStackNavigator } from 'react-navigation';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import '../global.js';
 import { SliderBox } from 'react-native-image-slider-box';
