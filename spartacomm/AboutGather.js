@@ -222,7 +222,7 @@ const [PassWord, setPassWord] = useState('');
             placeholder={'비밀번호'}
             style={styles.inputDesc}
             />    
-{Text style={styles.title}>{PassWord}</Text>
+<Text style={styles.title}>{PassWord}</Text>
           <Text style={{textAlign:"center",fontWeight:"500"}}>랙 유발로 인해 자동 새로고침 기능은 없습니다.</Text>
           <TouchableOpacity style={styles.middleButton04} onPress={()=>{goGather()}}><Text style={styles.middleButtonTextAll}>스온스 (게더)로 입장하기 ( 크롬 필수 )</Text></TouchableOpacity>
       </ScrollView>
