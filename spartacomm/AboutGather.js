@@ -4,7 +4,7 @@ import SpartaCardComment from '../components/SpartaCardComment';
 import * as Linking from 'expo-linking';
 import AutoHeightImage from "react-native-auto-height-image";
 import { createStackNavigator } from 'react-navigation';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import '../global.js';
 import { SliderBox } from 'react-native-image-slider-box';
