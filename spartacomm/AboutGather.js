@@ -7,6 +7,7 @@ import axios from 'axios';
 import '../global.js';
 import { SliderBox } from 'react-native-image-slider-box';
 import RNJsxParser from 'react-native-jsx-parser'
+import { render } from 'nunjucks';
 loaded = false;
 
 
@@ -17,8 +18,8 @@ const [PassWord, setPassWord] = useState('');
     useEffect(() => {
 
         const backAction = () => {
-          clearInterval()
-      
+          clearInterval(time)
+
                 navigation.goBack()
     
                 return true;
@@ -32,9 +33,26 @@ const [PassWord, setPassWord] = useState('');
 
         
     })
+    function goGather(){
+      Linking.openURL('https://app.gather.town/app/uqfFhchUsf1fCPsi/study')
+    }
+    let a = ``
+    let b = ``
+
+
+
+    let week = [ '일요일', '월요일', '화효일', '수요일', '목요일', '금요일', '토요일' ];
+    let gather = ['일요일 오후 02:00 ~ 05:00',
+    '월요일 오후 08:00 ~ 11:00','화요일 오후 08:00 ~ 11:00','수요일 오후 08:00 ~ 11:00','목요일 오후 08:00 ~ 11:00','금요일 없음','토요일 오후 02:00 ~ 05:00']
+    let list = []
+
 
     let startgather = ['20:00']
-
+   //let time = setInterval(function() {
+    list = ``
+    list = []
+    a = ``
+    b = ``
     var now = new Date();
     var write = new Date();
 
@@ -47,10 +65,26 @@ const [PassWord, setPassWord] = useState('');
 
     let nowdate = new Date(year, month, day, hours, minutes, seconds)
 
-    let week = [ '일요일', '월요일', '화효일', '수요일', '목요일', '금요일', '토요일' ];
-    let gather = ['일요일 오후 02:00 ~ 05:00',
-    '월요일 오후 08:00 ~ 11:00','화요일 오후 08:00 ~ 11:00','수요일 오후 08:00 ~ 11:00','목요일 오후 08:00 ~ 11:00','금요일 없음','토요일 오후 02:00 ~ 05:00']
-    let list = []
+    function mapStringToComponent(stringToRender, list, nowdate) {
+      nowdate = new Date(year, month, day, hours, minutes, seconds)
+       // result of this regex ["<Text>hello</Text>", "Text", "hello"]
+        if(stringToRender.includes(week[nowdate.getUTCDay()])){
+            list.push(React.createElement(
+              RN['Text'],
+              {style:{color:"green",marginLeft:5,fontSize:20,textAlign:"center"}}, // here may be an object with attributes if your node has any
+              stringToRender,
+            ));
+        }else{
+          list.push(React.createElement(
+            RN['Text'],
+            {style:{marginLeft:5,textAlign:"center"}}, // here may be an object with attributes if your node has any
+            stringToRender,
+          ));
+        }
+    
+      return null
+    }
+
     gather.map((value, i) => {
       mapStringToComponent(value, list, nowdate)
     })
@@ -68,7 +102,7 @@ const [PassWord, setPassWord] = useState('');
 
 
     if(nowdate.getUTCHours() >= 23 && (week[nowdate.getUTCDay()].includes('월') || week[nowdate.getUTCDay()].includes('화') || week[nowdate.getUTCDay()].includes('수') || week[nowdate.getUTCDay()].includes("목") || week[nowdate.getUTCDay()].includes("금"))){
-      if(week[nowdate.getUTCDay()].includes('월') || week[nowdate.getUTCDay()].includes('화') || week[nowdate.getUTCDay()].includes('수') || week[nowdate.getUTCDay()].includes('일')){
+      if(week[nowdate.getUTCDay()]. includes('월') || week[nowdate.getUTCDay()].includes('화') || week[nowdate.getUTCDay()].includes('수') || week[nowdate.getUTCDay()].includes('일')){
         write = new Date(write.setUTCDate(write.getUTCDate()+1))
       }
       if(week[nowdate.getUTCDay()].includes("목요일")){      
@@ -124,14 +158,10 @@ const [PassWord, setPassWord] = useState('');
       }
       elti = write.getTime() - nowdate.getTime()
     }
-    console.log(nowdate.getUTCDay())
-    console.log(nowdate.getUTCDate())
     
 
     let chai = elti
 
-    let a = ``
-    let b = ``
 
     if(chai < 1000 * 60)
       a += Math.floor(chai / 1000) + ' 초전',
@@ -170,62 +200,38 @@ const [PassWord, setPassWord] = useState('');
         a,
       ));
     if(a.includes("-")){
-        b = (React.createElement(
+        setb(React.createElement(
           RN['Text'],
           {style:{color:"black",marginLeft:5,fontSize:30,textAlign:"center"}}, // here may be an object with attributes if your node has any
           "진행중",
         ));
-    }
-
-    function goGather(){
-      Linking.openURL('https://app.gather.town/app/uqfFhchUsf1fCPsi/study')
-    }
-    
-
-    function mapStringToComponent(stringToRender, list, nowdate) {
-      nowdate = new Date(year, month, day, hours, minutes, seconds)
-       // result of this regex ["<Text>hello</Text>", "Text", "hello"]
-        if(stringToRender.includes(week[nowdate.getUTCDay()])){
-            list.push(React.createElement(
-              RN['Text'],
-              {style:{color:"green",marginLeft:5,fontSize:20,textAlign:"center"}}, // here may be an object with attributes if your node has any
-              stringToRender,
-            ));
-        }else{
-          list.push(React.createElement(
-            RN['Text'],
-            {style:{marginLeft:5,textAlign:"center"}}, // here may be an object with attributes if your node has any
-            stringToRender,
-          ));
         }
-    
-      return null
-    }
-    
-    return (
+        let time = setInterval(function() {
+          if(PassWord != 'a'){
+            setPassWord('a')
+          }else{
+            setPassWord('b')
+          }
+      },1000);
+      return (
       
-      <ScrollView>
-        <TouchableOpacity style={styles.refresh} onPress={() => {navigation.reset({index: 0, routes:[{name:'AboutGather'}]})}}><Text style={styles.refreshtext}>눌러서 새로 고침</Text></TouchableOpacity>
-        <Text style={styles.title}>스온스 (게더)에 관하여</Text>
-        <View style={styles.descotainer}></View>
-          <Text style={styles.desc}>스온스는 스파르타 온라인 스터디의 약자입니다</Text>
-          <Text style={styles.desc}>게더라는 가상의 공간에서 진행됩니다</Text>
-          <Text style={styles.title}>진행 시간</Text>
-          <View style={styles.cardDesc}>{list.map((value) => {return(value)})}</View>
-          <Text style={styles.title}>시작까지 남은시간</Text>
-          {b}
-<TextInput
-            value={PassWord}
-            onChangeText={(PassWord) => setPassWord(PassWord)}
-            placeholder={'비밀번호'}
-            style={styles.inputDesc}
-            />    
-<Text style={styles.title}>{PassWord}</Text>
-          <Text style={{textAlign:"center",fontWeight:"500"}}>랙 유발로 인해 자동 새로고침 기능은 없습니다.</Text>
-          <TouchableOpacity style={styles.middleButton04} onPress={()=>{goGather()}}><Text style={styles.middleButtonTextAll}>스온스 (게더)로 입장하기 ( 크롬 필수 )</Text></TouchableOpacity>
-      </ScrollView>
-        
-    );
+        <ScrollView>
+          <TouchableOpacity style={styles.refresh} onPress={() => {navigation.reset({index: 0, routes:[{name:'AboutGather'}]})}}><Text style={styles.refreshtext}>눌러서 새로 고침</Text></TouchableOpacity>
+          <Text style={styles.title}>스온스 (게더)에 관하여</Text>
+          <View style={styles.descotainer}></View>
+            <Text style={styles.desc}>스온스는 스파르타 온라인 스터디의 약자입니다</Text>
+            <Text style={styles.desc}>게더라는 가상의 공간에서 진행됩니다</Text>
+            <Text style={styles.title}>진행 시간</Text>
+            <View style={styles.cardDesc}>{list.map((value) => {return(value)})}</View>
+            <Text style={styles.title}>시작까지 남은시간</Text>
+            {b}
+            <Text style={{textAlign:"center",fontWeight:"500"}}>랙 유발로 인해 자동 새로고침 기능은 없습니다.</Text>
+            <TouchableOpacity style={styles.middleButton04} onPress={()=>{goGather()}}><Text style={styles.middleButtonTextAll}>스온스 (게더)로 입장하기 ( 크롬 필수 )</Text></TouchableOpacity>
+        </ScrollView>
+          
+      );
+    
+
 }
 
 const styles = StyleSheet.create({
